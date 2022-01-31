@@ -11,6 +11,7 @@ import frc.robot.commands.C_DriveForwardDistance;
 import frc.robot.commands.C_ElevatorPID;
 import frc.robot.commands.C_ElevatorStick;
 import frc.robot.commands.C_IntakeSet;
+import frc.robot.Constants.*;
 import frc.robot.subsystems.SS_Elevator;
 import frc.robot.subsystems.SS_Intake;
 import frc.robot.subsystems.SS_TankDrive;
@@ -27,9 +28,10 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+  /** The container for the robot. Contains subsystems and OI devices */
   // Setup Controllers
   private final XboxGamepad m_driverController = new XboxGamepad(
-                  Constants.OI.XBOX_DRIVER_CONTROLLER_ID, Constants.OI.deadbandDriver);
+                  OIConstants.XBOX_DRIVER_CONTROLLER_ID, OIConstants.deadbandDriver);
   // private final XboxGamepad m_operatorController = new XboxGamepad(
   //                 Constants.XboxGamePad.XBOX_DRIVER_CONTROLLER_ID, Constants.XboxGamePad.deadbandOperator);
   
@@ -38,15 +40,14 @@ public class RobotContainer {
   private final SS_Intake ss_Intake = new SS_Intake();
   private final SS_Elevator ss_Elevator = new SS_Elevator();
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // set default commands for subsystems
     ss_Elevator.setDefaultCommand(new C_ElevatorStick(ss_Elevator, 0));
 
     ss_Intake.setDefaultCommand(new C_IntakeSet(ss_Intake, true));
     Command cmd = new C_Drive(ss_TankDrive, 
-                        () -> m_driverController.getRawAxis(Constants.OI.L_Y_AXIS), 
-                        () -> m_driverController.getRawAxis(Constants.OI.R_X_AXIS));
+                        () -> m_driverController.getRawAxis(OIConstants.L_Y_AXIS), 
+                        () -> m_driverController.getRawAxis(OIConstants.R_X_AXIS));
     ss_TankDrive.setDefaultCommand(cmd);
 
     // Configure the button bindings
@@ -54,26 +55,26 @@ public class RobotContainer {
   }
 
   /**
-   * Use this method to define your button->command mappings. Buttons can be created by
-   * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
-   * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
+   * Use this configureButtonBindings() method to define your button->command mappings. 
+   * Buttons can be created by instantiating a {@link GenericHID} or one of its subclasses 
+   * ({@link edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a 
+   * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
     // raise elevator
-    new JoystickButton(m_driverController, Constants.OI.A_BUTTON)
-            .whileActiveOnce(new C_ElevatorStick(ss_Elevator, Constants.Elevator.kMaxSpeed));
+    new JoystickButton(m_driverController, OIConstants.A_BUTTON)
+            .whileActiveOnce(new C_ElevatorStick(ss_Elevator, ElevatorConstants.kMaxSpeed));
     // lower elevator
-    new JoystickButton(m_driverController, Constants.OI.B_BUTTON)
-            .whileActiveOnce(new C_ElevatorStick(ss_Elevator, -Constants.Elevator.kMaxSpeed));
+    new JoystickButton(m_driverController, OIConstants.B_BUTTON)
+            .whileActiveOnce(new C_ElevatorStick(ss_Elevator, -ElevatorConstants.kMaxSpeed));
     // set elevator to raised position (1.2 meter)
-    new JoystickButton(m_driverController, Constants.OI.X_BUTTON)
-            .whileActiveOnce(new C_ElevatorStick(ss_Elevator, Constants.Elevator.kRaisedPosition));
+    new JoystickButton(m_driverController, OIConstants.X_BUTTON)
+            .whileActiveOnce(new C_ElevatorStick(ss_Elevator, ElevatorConstants.kRaisedPosition));
     // set elevator to lowered position (0 meter)
-    new JoystickButton(m_driverController, Constants.OI.Y_BUTTON)
-            .whileActiveOnce(new C_ElevatorStick(ss_Elevator, Constants.Elevator.kLoweredPosition));
+    new JoystickButton(m_driverController, OIConstants.Y_BUTTON)
+            .whileActiveOnce(new C_ElevatorStick(ss_Elevator, ElevatorConstants.kLoweredPosition));
     // intake not open
-    new JoystickButton(m_driverController, Constants.OI.L_BUMPER_BUTTON)
+    new JoystickButton(m_driverController, OIConstants.L_BUMPER_BUTTON)
             .whileActiveOnce(new C_IntakeSet(ss_Intake, false));
 
   }
@@ -85,10 +86,10 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     return new SequentialCommandGroup(
-      new C_DriveForwardDistance(ss_TankDrive, Constants.Drive.kAutoDriveForwardDistance),  // drive forward
+      new C_DriveForwardDistance(ss_TankDrive, DriveConstants.kAutoDriveForwardDistance),  // drive forward
       new ParallelCommandGroup(
         new C_IntakeSet(ss_Intake, false),    // set intake and 'open' the intake jaws
-        new C_ElevatorPID(ss_Elevator, Constants.Elevator.kRaisedPosition)   // set elevator to raised position
+        new C_ElevatorPID(ss_Elevator, ElevatorConstants.kRaisedPosition)   // set elevator to raised position
       )
     );
   }

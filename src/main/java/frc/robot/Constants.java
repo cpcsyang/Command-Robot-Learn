@@ -14,7 +14,7 @@ package frc.robot;
  */
 public final class Constants {
 
-    public static final class CAN {
+    public static final class CANConstants {
         // private static final double WHEEL_DIAMETER = 4.0;   // unit: inch
         public static final int L_MOTOR_CONTROLLER_CAN_ID = 3;
         public static final int R_MOTOR_CONTROLLER_CAN_ID = 4;
@@ -26,7 +26,7 @@ public final class Constants {
 
     }
 
-    public static final class Drive {
+    public static final class DriveConstants {
         public static final int kLeftEncoderChannelA = 0;  // FIXME: need actual encoder channels
         public static final int kLeftEncoderChannelB = 1;
         public static final int kRightEncoderChannelA = 2;
@@ -36,7 +36,7 @@ public final class Constants {
         public static final double kAutoDriveForwardDistance = 1.5;
     }
 
-    public static final class Elevator {
+    public static final class ElevatorConstants {
         public static final double kRaisedPosition = 1.2;
         public static final double kLoweredPosition = 0;
         public static final double kMaxSpeed = 0.5;
@@ -48,12 +48,12 @@ public final class Constants {
 
     }
 
-    public static final class Intake {
+    public static final class IntakeConstants {
         public static final double kOpenSpeed = -1;
         public static final double kCloseSpeed = 1;
     }
 
-    public static final class OI {
+    public static final class OIConstants {
         public static final int XBOX_DRIVER_CONTROLLER_ID = 0;
         public static final double deadbandDriver = 0.1;
         public static final int XBOX_OPERATER_CONTROLLER_ID = 1;

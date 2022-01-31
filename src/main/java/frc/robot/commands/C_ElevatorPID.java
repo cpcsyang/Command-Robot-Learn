@@ -6,7 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
+import frc.robot.Constants.*;
 import frc.robot.subsystems.SS_Elevator;
 
 public class C_ElevatorPID extends CommandBase {
@@ -15,7 +15,7 @@ public class C_ElevatorPID extends CommandBase {
   
   public C_ElevatorPID(SS_Elevator ss_Elevator, double setpoint) {
     this.ss_Elevator = ss_Elevator;
-    this.m_PIDController = new PIDController(Constants.Elevator.kP, Constants.Elevator.kI, Constants.Elevator.kD);
+    this.m_PIDController = new PIDController(ElevatorConstants.kP, ElevatorConstants.kI, ElevatorConstants.kD);
     this.m_PIDController.setSetpoint(setpoint);;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(ss_Elevator);

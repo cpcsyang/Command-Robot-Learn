@@ -5,7 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
+import frc.robot.Constants.*;
 import frc.robot.subsystems.SS_TankDrive;
 
 public class C_DriveForwardDistance extends CommandBase {
@@ -30,7 +30,7 @@ public class C_DriveForwardDistance extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    ss_TankDrive.setMotors(Constants.Drive.kAutoDriveForwardSpeed, Constants.Drive.kAutoDriveForwardSpeed);
+    ss_TankDrive.setMotors(DriveConstants.kAutoDriveForwardSpeed, DriveConstants.kAutoDriveForwardSpeed);
   }
 
   // Called once the command ends or is interrupted.
